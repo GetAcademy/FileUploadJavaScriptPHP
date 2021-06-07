@@ -15,12 +15,17 @@
         async function readImage(fileInput) {
             let formData = new FormData();
             formData.append("file", fileInput.files[0]);
-            await fetch('/api.php', {
+            let response = await fetch('/api.php', {
                 method: "POST",
                 body: formData
             });
+            let json = await response.text();
+            console.log(json);
+            let returnValue = JSON.parse(json);
+            document.getElementById('app').innerHTML+= `<img src="${returnValue.fileName}"/>`;
         }
     </script>
+    <div id="app"></div>
 </body>
 
 </html>
